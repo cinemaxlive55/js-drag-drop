@@ -1,0 +1,80 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>HTML DOM - Show a ghost element when dragging an element</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/demo.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter&family=Source+Code+Pro&display=swap"
+    />
+    <style>
+      .draggable {
+        cursor: move;
+        user-select: none;
+
+        /* Misc */
+        align-items: center;
+        border: 1px solid #cbd5e0;
+        display: flex;
+        height: 8rem;
+        justify-content: center;
+        width: 8rem;
+      }
+      .dragging {
+        align-items: center;
+        height: 40px;
+        justify-content: center;
+        width: 200px;
+        background: #00f7f8;
+        box-shadow: 2px 2px 4px rgba(22, 25, 25, 0.2);
+        border-radius: 6px;
+        position: absolute;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        min-height: 32rem;
+      "
+    >
+      <div draggable="true" class="draggable" id="dragMe">Drag me</div>
+      <div id="ghost" class="dragging"><div>I am flying</div></div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Query the element
+        const ele = document.getElementById('dragMe');
+
+        // The ghost element
+        // let ghostEle;
+
+        ele.addEventListener('dragstart', function (e) {
+          // ghostEle = document.createElement('div');
+          // ghostEle.classList.add('dragging');
+          // ghostEle.innerHTML = '8 data fields';
+          // ghostEle.style.position = "absolute";
+          const ghostEle = document.getElementById('ghost');
+          ghostEle.style.display = 'flex';
+          ghostEle.style.top = '-2000px';
+          ghostEle.style.left = '-2000px';
+          // document.body.appendChild(ghostEle);
+          e.dataTransfer.setDragImage(ghostEle, 0, 0);
+        });
+
+        ele.addEventListener('dragend', function (e) {
+          const ghostEle = document.getElementById('ghost');
+          ghostEle.style.display = 'none';
+          // document.body.removeChild(ghostEle);
+        });
+      });
+    </script>
+  </body>
+</html>
