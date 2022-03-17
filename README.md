@@ -1,1 +1,1 @@
-# js-drag-drop
+# javascript drag and drop ghost
